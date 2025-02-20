@@ -61,7 +61,7 @@ const constructInteraction = (
     }
   }
 }
-export const constructPactFile = ({ intercept, testCaseTitle, pactConfig, blocklist = [], content }: PactFileType) => {
+export const constructPactFile = ({ providerState, intercept, testCaseTitle, pactConfig, blocklist = [], content }: PactFileType) => {
   const pactSkeletonObject = {
     consumer: { name: pactConfig.consumerName },
     provider: { name: pactConfig.providerName },
@@ -78,7 +78,7 @@ export const constructPactFile = ({ intercept, testCaseTitle, pactConfig, blockl
   }
 
   if (content) {
-    const interactions = [...content.interactions, constructInteraction(intercept, testCaseTitle, blocklist)]
+    const interactions = [...content.interactions, constructInteraction(providerState, intercept, testCaseTitle, blocklist)]
     const nonDuplicatesInteractions = reverse(uniqBy(reverse(interactions), 'description'))
     const data = {
       ...pactSkeletonObject,
@@ -90,7 +90,7 @@ export const constructPactFile = ({ intercept, testCaseTitle, pactConfig, blockl
 
   return {
     ...pactSkeletonObject,
-    interactions: [...pactSkeletonObject.interactions, constructInteraction(intercept, testCaseTitle, blocklist)]
+    interactions: [...pactSkeletonObject.interactions, constructInteraction(providerState, intercept, testCaseTitle, blocklist)]
   }
 }
 

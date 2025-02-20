@@ -27,7 +27,7 @@ describe('constructPactFile', () => {
       interactions: [
         {
           description: 'shows todo',
-          providerState: '',
+          providerState: 'this is a test state',
           request: {
             method: 'GET',
             path: '/api/todo',
@@ -101,7 +101,7 @@ describe('constructPactFile', () => {
       }
     } as XHRRequestAndResponse
     const result = constructPactFile({
-      providerState: 'This is a test state'
+      providerState: 'This is a test state',
       intercept: newIntercept,
       testCaseTitle: 'create todo',
       pactConfig: {

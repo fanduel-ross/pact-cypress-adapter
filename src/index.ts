@@ -7,9 +7,9 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable {
-      usePactWait: (alias: AliasType) => Chainable
+      usePactWait: (alias: AliasType, state: string) => Chainable
       usePactRequest: (option: AnyObject, alias: string) => Chainable
-      usePactGet: (alias: string, pactConfig: PactConfigType) => Chainable
+      usePactGet: (alias: string, state: string, pactConfig: PactConfigType) => Chainable
       setupPact: (consumerName: string, providerName: string) => Chainable<null>
       setupPactHeaderBlocklist: (headers: string[]) => Chainable<null>
     }
@@ -32,7 +32,7 @@ let headersBlocklist: string[] = ignoreDefaultBlocklist
   ? globalBlocklist
   : [...globalBlocklist, ...AUTOGEN_HEADER_BLOCKLIST]
 
-const setupPactHeaderBlocklist = (headers: string[]) => {
+const setupPactHeaderBlocklist = (headers: string) => {
   headersBlocklist = [...headers, ...headersBlocklist]
 }
 

@@ -36,7 +36,7 @@ const setupPactHeaderBlocklist = (headers: string[]) => {
   headersBlocklist = [...headers, ...headersBlocklist]
 }
 
-const usePactWait = (alias: AliasType) => {
+const usePactWait = (alias: AliasType,state: string) => {
   const formattedAlias = formatAlias(alias)
   // Cypress versions older than 8.2 do not have a currentTest objects
   const testCaseTitle = Cypress.currentTest ? Cypress.currentTest.title : ''
@@ -45,6 +45,7 @@ const usePactWait = (alias: AliasType) => {
     cy.wait([...formattedAlias]).spread((...intercepts) => {
       intercepts.forEach((intercept, index) => {
         writePact({
+          providerState: state,
           intercept,
           testCaseTitle: `${testCaseTitle}-${formattedAlias[index]}`,
           pactConfig,
@@ -56,6 +57,7 @@ const usePactWait = (alias: AliasType) => {
     cy.wait(formattedAlias).then((intercept) => {
       const flattenIntercept = Array.isArray(intercept) ? intercept[0] : intercept
       writePact({
+        providerState: state,
         intercept: flattenIntercept,
         testCaseTitle: `${testCaseTitle}`,
         pactConfig,

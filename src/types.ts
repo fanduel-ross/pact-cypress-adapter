@@ -70,6 +70,7 @@ export type RequestOptionType = {
 }
 
 export type PactFileType = {
+  providerState: string
   intercept: Interception | XHRRequestAndResponse
   testCaseTitle: string
   pactConfig: PactConfigType

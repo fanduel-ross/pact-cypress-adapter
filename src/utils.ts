@@ -36,6 +36,7 @@ export const omitHeaders = (headers: HeaderType, blocklist: string[]) => {
 }
 
 const constructInteraction = (
+  providerState: string,
   intercept: Interception | XHRRequestAndResponse,
   testTitle: string,
   blocklist: string[]
@@ -45,7 +46,7 @@ const constructInteraction = (
   const query = new URLSearchParams(search).toString()
   return {
     description: testTitle,
-    providerState: '',
+    providerState: providerState,
     request: {
       method: intercept.request.method,
       path: path,

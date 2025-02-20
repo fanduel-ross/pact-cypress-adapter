@@ -101,6 +101,7 @@ describe('constructPactFile', () => {
       }
     } as XHRRequestAndResponse
     const result = constructPactFile({
+      providerState: 'This is a test state'
       intercept: newIntercept,
       testCaseTitle: 'create todo',
       pactConfig: {

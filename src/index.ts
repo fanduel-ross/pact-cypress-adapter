@@ -69,7 +69,7 @@ const usePactWait = (alias: AliasType, state: string) => {
 
 const requestDataMap: AnyObject = {}
 
-const usePactGet = (alias: string) => {
+const usePactGet = (alias: string, state: string) => {
   const formattedAlias = formatAlias(alias)
   // Cypress versions older than 8.2 do not have a currentTest objects
   const testCaseTitle = Cypress.currentTest ? Cypress.currentTest.title : ''
@@ -91,6 +91,7 @@ const usePactGet = (alias: string) => {
         }
       } as XHRRequestAndResponse
       writePact({
+        providerState: state,
         intercept: fullRequestAndResponse,
         testCaseTitle: `${testCaseTitle}-${alias}`,
         pactConfig,

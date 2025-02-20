@@ -12,15 +12,15 @@ export const formatAlias = (alias: AliasType) => {
 const constructFilePath = ({ consumerName, providerName }: PactConfigType) =>
   `cypress/pacts/${providerName}-${consumerName}.json`
 
-export const writePact = ({ intercept, testCaseTitle, pactConfig, blocklist }: PactFileType) => {
+export const writePact = ({ providerState, intercept, testCaseTitle, pactConfig, blocklist }: PactFileType) => {
   const filePath = constructFilePath(pactConfig)
   cy.task('readFile', filePath)
     .then((content) => {
       if (content) {
         const parsedContent = JSON.parse(content as string)
-        return constructPactFile({ intercept, testCaseTitle, pactConfig, blocklist, content: parsedContent })
+        return constructPactFile({providerState, intercept, testCaseTitle, pactConfig, blocklist, content: parsedContent })
       } else {
-        return constructPactFile({ intercept, testCaseTitle, pactConfig, blocklist })
+        return constructPactFile({providerState, intercept, testCaseTitle, pactConfig, blocklist })
       }
     })
     .then((data) => {
